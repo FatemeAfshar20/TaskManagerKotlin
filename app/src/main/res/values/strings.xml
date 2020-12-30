@@ -36,4 +36,8 @@
     <string name="length_pass">"Password should be more than 8</string>
     <string name="search">Search</string>
     <string name="take_photo">take photo</string>
+    <string name="hint_task_title">title</string>
+    <string name="task_description">Task Description</string>
+    <string name="hint_task_description">description</string>
+    <string name="task_save">save</string>
 </resources>

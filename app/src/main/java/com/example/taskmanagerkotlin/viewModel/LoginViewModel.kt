@@ -5,7 +5,6 @@ import androidx.lifecycle.AndroidViewModel
 import com.example.taskmanagerkotlin.R
 import com.example.taskmanagerkotlin.model.User
 import com.example.taskmanagerkotlin.utils.TskViewUtils
-import com.example.taskmanagerkotlin.view.activity.TaskManagerActivity
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 

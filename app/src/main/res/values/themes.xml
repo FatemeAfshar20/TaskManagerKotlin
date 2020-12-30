@@ -13,6 +13,19 @@
 
     <style name="TextStyle">
         <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="HeaderTextStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">@dimen/pad_5</item>
+        <item name="android:layout_marginTop">@dimen/mrg_5</item>
+    </style>
+
+    <style name="ItemTextStyle" parent="HeaderTextStyle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
     </style>
 </resources>
