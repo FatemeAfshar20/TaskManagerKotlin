@@ -17,6 +17,10 @@ class UserRepository private constructor(context: Context) :
         return mDAO.get(id)
     }
 
+    fun get(username: String): User? {
+        return mDAO.get(username)
+    }
+
     override fun getList(): List<User> {
         return mDAO.getList()
     }
@@ -50,5 +54,9 @@ class UserRepository private constructor(context: Context) :
             .build()
 
         mDAO = database.getUserDAo()
+    }
+
+    fun checkUserExist(username:String) : Boolean{
+        return get(username) == null
     }
 }

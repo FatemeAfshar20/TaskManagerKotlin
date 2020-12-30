@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import com.example.taskmanagerkotlin.R
 import com.example.taskmanagerkotlin.databinding.FragmentLoginBinding
 import com.example.taskmanagerkotlin.view.IOnClickListener
@@ -26,13 +25,16 @@ class LoginFragment : Fragment() , IOnClickListener {
         super.onAttach(context)
         if (context is LoginFragmentCallback)
             callback= context  // why  don't need casting here?
+        else
+            throw ClassCastException("At first must implement LoginFragmentCallback interface")
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel= activity?.application?.let { LoginViewModel(it) }
-        viewModel!!.iOnclickListener=this
+        viewModel?.common?.iOnclickListener =this
+
         arguments?.let {
 
         }
@@ -48,6 +50,7 @@ class LoginFragment : Fragment() , IOnClickListener {
             container,
             false)
         binding.viewModel=viewModel
+        binding.fragment=this
         return binding.root
     }
 
@@ -62,10 +65,11 @@ class LoginFragment : Fragment() , IOnClickListener {
     }
 
      interface LoginFragmentCallback{
-        fun onSignUpClickListener();
+        fun onSignUpClickListener()
+         fun onLoginClickListener()
     }
 
     override fun onButtonClickListener() {
-        callback?.onSignUpClickListener()
+        callback?.onLoginClickListener()
     }
 }

@@ -2,33 +2,24 @@ package com.example.taskmanagerkotlin.viewModel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import com.example.taskmanagerkotlin.data.UserRepository
+import com.example.taskmanagerkotlin.R
 import com.example.taskmanagerkotlin.model.User
-import com.example.taskmanagerkotlin.view.IOnClickListener
+import com.example.taskmanagerkotlin.utils.TskViewUtils
+import com.example.taskmanagerkotlin.view.activity.TaskManagerActivity
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
-    private var repository:UserRepository?=null
-    private var user:User?=null
-    var iOnclickListener:IOnClickListener?=null
 
-    init {
-        repository= UserRepository.getInstance(application)
-    }
+    val common =CommonLogicInSignAndLogin(application)
 
-    fun onTextChangedUserName(username:CharSequence,i:Int,j:Int,k:Int){
-        user?.userName =username.toString()
-    }
-
-    fun onTextChangePassword(password:CharSequence,i:Int,j:Int,k:Int){
-        user?.password =password.toString()
-    }
-
-    fun onTextChangeAdminPass(adminPass:CharSequence,i:Int,j:Int,k:Int){
-        if (adminPass.toString()=="@utab")
-            user?.isAdmin=true
-    }
-
-    fun onSignBtnClickListener(){
-        iOnclickListener?.onButtonClickListener()
+    fun onLoginBtnClickListener(){
+        val user:User=common.user
+        if (!user.userName?.let { common.repository?.checkUserExist(it) }!!){
+            val userInput: User? =common.repository?.get(user.userName!!)
+            if (userInput?.password.equals(user.password))
+                    common.iOnclickListener?.onButtonClickListener()
+            else
+                TskViewUtils.returnToast(getApplication(), R.string.invalid_input)
+        }else
+            TskViewUtils.returnToast(getApplication(),"At first sign up")
     }
 }

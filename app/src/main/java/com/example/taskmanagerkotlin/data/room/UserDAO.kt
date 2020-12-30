@@ -7,6 +7,9 @@ interface UserDAO {
     @Query(value = "SELECT * FROM userTable WHERE id=:id")
     fun get(id: Long): User
 
+    @Query(value = "SELECT * FROM userTable WHERE username=:username")
+    fun get(username:String):User?
+
     @Query(value = "SELECT * FROM userTable")
     fun getList(): List<User>
 
@@ -18,4 +21,5 @@ interface UserDAO {
 
     @Update
     fun update(t: User)
+
 }

@@ -6,7 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
 import com.example.taskmanagerkotlin.R
+import com.example.taskmanagerkotlin.databinding.FragmentSignBinding
+import com.example.taskmanagerkotlin.view.IOnClickListener
+import com.example.taskmanagerkotlin.viewModel.SignUpViewModel
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -16,10 +20,23 @@ private const val ARG_PARAM2 = "param2"
  * Use the [SignUpFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class SignUpFragment : Fragment() {
+class SignUpFragment : Fragment() , IOnClickListener{
+    var callback:SignUpFragmentCallback?=null
+    var viewModel:SignUpViewModel?=null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is SignUpFragmentCallback)
+            callback= context  // why  don't need casting here?
+        else
+            throw ClassCastException("At first must implement LoginFragmentCallback interface")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        viewModel= activity?.application?.let { SignUpViewModel(it) }
+        viewModel?.common?.iOnclickListener =this
+
         arguments?.let {
 
         }
@@ -30,7 +47,13 @@ class SignUpFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sign, container, false)
+        val binding:FragmentSignBinding=DataBindingUtil
+            .inflate(inflater,
+                R.layout.fragment_sign,
+                container,
+                false)
+        binding.viewModel=viewModel
+        return binding.root
     }
 
     companion object {
@@ -47,5 +70,13 @@ class SignUpFragment : Fragment() {
 
                 }
             }
+    }
+
+    override fun onButtonClickListener() {
+            callback?.onSignClickListener()
+    }
+
+    interface SignUpFragmentCallback{
+        fun onSignClickListener()
     }
 }

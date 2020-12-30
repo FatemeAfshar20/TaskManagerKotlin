@@ -4,47 +4,62 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     >
-
     <data>
-
+        <variable
+            name="viewModel"
+            type="com.example.taskmanagerkotlin.viewModel.SignUpViewModel" />
+        <variable
+            name="fragment"
+            type="com.example.taskmanagerkotlin.view.fragment.SignUpFragment" />
     </data>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
 
-
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="300dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:hint="@string/userneme"
+            android:layout_margin="@dimen/mrg_10"
+            app:boxStrokeColor="@color/light_purple"
+            >
 
-            <EditText
-                android:id="@+id/user_name"
-                android:layout_width="300dp"
-                android:layout_height="64dp"
-                android:layout_gravity="center"
-                android:hint="@string/userneme"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/username"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:padding="10dp"
-                android:textColor="@color/black" />
+                android:textColor="@color/black"
+                android:onTextChanged="@{viewModel.common::onTextChangedUserName}"
+                android:layout_margin="@dimen/mrg_5"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="300dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            app:boxStrokeColor="@color/so_light_purple"
+            android:hint="@string/password"
+            android:layout_margin="@dimen/mrg_10"
+            app:endIconMode="password_toggle"
+            >
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/pass"
-                android:layout_width="300dp"
-                android:layout_height="64dp"
-                android:layout_gravity="center"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:padding="@dimen/pad_10"
-                android:textColor="@color/black" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:layout_margin="@dimen/mrg_5"
+                android:inputType="numberPassword"
+                android:onTextChanged="@{viewModel.common::onTextChangePassword}"
+                />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textview.MaterialTextView
@@ -59,17 +74,24 @@
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="300dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            app:boxStrokeColor="@color/so_light_purple"
+            android:hint="@string/admin_code"
+            android:layout_margin="@dimen/mrg_10"
+            app:endIconMode="password_toggle"
+            >
 
-            <EditText
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/admin_pass"
-                android:layout_width="300dp"
-                android:layout_height="64dp"
-                android:layout_gravity="center"
-                android:hint="@string/admin_code"
-                android:padding="@dimen/pad_10"
-                android:textColor="@color/black" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                android:layout_margin="@dimen/mrg_5"
+                android:onTextChanged="@{viewModel::onTextChangeAdminPass}"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -80,8 +102,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/mrg_10"
             android:text="@string/sign_up"
+            android:textAllCaps="false"
+            android:onClick="@{()->viewModel.onSignBtnClickListener()}"
             />
-
 
     </LinearLayout>
 </layout>
