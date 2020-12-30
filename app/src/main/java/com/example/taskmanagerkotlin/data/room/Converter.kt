@@ -3,7 +3,7 @@ package com.example.taskmanagerkotlin.data.room
 import androidx.room.TypeConverter
 import java.util.*
 
-object Converter {
+open class Converter {
     @TypeConverter
     fun fromTimestamp(value: Long?): Date? {
         return value?.let { Date(it) }

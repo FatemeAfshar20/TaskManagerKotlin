@@ -2,13 +2,15 @@ package com.example.taskmanagerkotlin.data
 
 import android.content.Context
 import androidx.room.Room
+import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.taskmanagerkotlin.data.room.TaskManagerDatabase
 import com.example.taskmanagerkotlin.data.room.UserDAO
 import com.example.taskmanagerkotlin.model.User
+import javax.security.auth.callback.Callback
 
 class UserRepository private constructor(context: Context) :
     IRepository<User> {
-    private val mContext: Context
+    private val mContext: Context = context.applicationContext
     private val mDAO: UserDAO
 
     override fun get(id: Long): User {
@@ -41,12 +43,12 @@ class UserRepository private constructor(context: Context) :
     }
 
     init {
-        mContext = context.applicationContext
-        val database = Room.databaseBuilder(
-            mContext,
-            TaskManagerDatabase::class.java,
-            TaskManagerSchema.NAME).
-        allowMainThreadQueries().build()
+        val database = Room.databaseBuilder(mContext, TaskManagerDatabase::class.java,
+            "note_database")
+            .fallbackToDestructiveMigration()
+            .allowMainThreadQueries()
+            .build()
+
         mDAO = database.getUserDAo()
     }
 }

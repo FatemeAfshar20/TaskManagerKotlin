@@ -24,18 +24,4 @@ class User() {
 
     @ColumnInfo(name = UserColumns.MEMBERSHIP)
     var membership: Date = Date()
-
-    fun User(
-        id: Long,
-        username: String,
-        password: String,
-        isAdmin: Boolean,
-        membership: Date
-    ) {
-        this.id = id
-        this.userName = username
-        this.password = password
-        this.isAdmin = isAdmin
-        this.membership = membership
-    }
 }
