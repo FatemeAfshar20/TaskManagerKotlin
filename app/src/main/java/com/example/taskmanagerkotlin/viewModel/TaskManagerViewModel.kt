@@ -4,9 +4,10 @@ import android.app.Application
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.AndroidViewModel
 import com.example.taskmanagerkotlin.view.fragment.TaskDialogFragment
+import com.example.taskmanagerkotlin.view.fragment.TaskManagerFragment
 
 const val REQUEST_CODE_ADD_TASK = 1
-const val DIALOG_FRAGMENT_TAG = "Task Dialog Fragment"
+
 
 class TaskManagerViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -15,6 +16,7 @@ class TaskManagerViewModel(application: Application) : AndroidViewModel(applicat
 
         taskDialogFragment.setTargetFragment(fragment, REQUEST_CODE_ADD_TASK)
 
-        taskDialogFragment.show(fragment.childFragmentManager, DIALOG_FRAGMENT_TAG)
+        taskDialogFragment.show(fragment.parentFragmentManager,
+            TaskManagerFragment.TASK_MANAGER_TAG)
     }
 }

@@ -5,7 +5,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <variable
+            name="fragment"
+            type="com.example.taskmanagerkotlin.view.fragment.TaskManagerFragment" />
+        <variable
+            name="viewModel"
+            type="com.example.taskmanagerkotlin.viewModel.TaskManagerViewModel" />
     </data>
 
     <FrameLayout
@@ -25,7 +30,9 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/mrg_10"
             android:src="@drawable/ic_add_circle"
-            app:maxImageSize="60dp" />
+            app:maxImageSize="60dp"
+            android:onClick="@{()->viewModel.onClickAddTaskFAB(fragment)}"
+            />
 
     </FrameLayout>
 </layout>
